@@ -10,6 +10,7 @@
   <img alt="Tampermonkey" src="https://img.shields.io/badge/Tampermonkey-supported-00485b">
   <img alt="Chromium | Firefox" src="https://img.shields.io/badge/browser-Chromium%20%7C%20Firefox-orange">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green">
+  <a href="https://ko-fi.com/jasdanjc"><img alt="Ko-fi" src="https://img.shields.io/badge/Ko--fi-support-FF5E5B?logo=kofi&logoColor=white"></a>
 </p>
 
 <p align="center">
@@ -37,6 +38,7 @@
 - [Troubleshooting](#troubleshooting)
 - [FAQ](#faq)
 - [Privacy & security](#privacy--security)
+- [Support](#support)
 - [Disclaimer](#disclaimer)
 - [License](#license)
 
@@ -281,6 +283,18 @@ Yes. They are fully independent and keep separate state.
 - The only data saved (in the userscript manager's storage) is the date of the last check-in and the timestamp of the last attempt.
 - Network access is limited to HoYoLAB's API via `@connect`.
 - The code is short and readable — feel free to review it before installing.
+
+---
+
+## Support
+
+These scripts are free and open source. If they saved you a few clicks (or a missed login reward), you can support their development with a coffee:
+
+<p align="center">
+  <a href="https://ko-fi.com/jasdanjc"><img alt="Support me on Ko-fi" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" height="40"></a>
+</p>
+
+Bug reports, ideas and pull requests are also very welcome in [Issues](https://github.com/JasdanJC/hoyolab-daily-auto-checkin/issues). A ⭐ on the repository helps too!
 
 ---
 
