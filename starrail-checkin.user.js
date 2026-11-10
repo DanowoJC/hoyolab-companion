@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name         Honkai Star Rail – Registro diario HoYoLAB
+// @name         Honkai Star Rail – HoYoLAB Daily Check-in
 // @namespace    https://github.com/JasdanJC/hoyolab-daily-auto-checkin
-// @version      1.0.0
+// @version      1.1.0
 // @author       JasdanJC
+// @description  Automatically claims the Honkai: Star Rail daily check-in reward on HoYoLAB once per day, in the background, while you browse any website.
 // @homepageURL  https://github.com/JasdanJC/hoyolab-daily-auto-checkin
 // @supportURL   https://github.com/JasdanJC/hoyolab-daily-auto-checkin/issues
 // @updateURL    https://raw.githubusercontent.com/JasdanJC/hoyolab-daily-auto-checkin/main/starrail-checkin.user.js
 // @downloadURL  https://raw.githubusercontent.com/JasdanJC/hoyolab-daily-auto-checkin/main/starrail-checkin.user.js
-// @description  Reclama la recompensa diaria de Honkai: Star Rail en HoYoLAB una vez al día, en segundo plano, mientras navegas por cualquier web.
 // @match        *://*/*
 // @noframes
 // @run-at       document-idle
@@ -23,25 +23,25 @@
 (function () {
   'use strict';
 
-  // ---- Configuración ------------------------------------------------------
-  const ACT_ID = 'e202303301540311'; // evento de registro diario de Star Rail (HoYoLAB global)
+  // ---- Configuration ------------------------------------------------------
+  const ACT_ID = 'e202303301540311'; // Honkai: Star Rail daily check-in event (HoYoLAB global)
   const API = 'https://sg-public-api.hoyolab.com/event/luna/os';
   const PAGE = `https://act.hoyolab.com/bbs/event/signin/hkrpg/index.html?act_id=${ACT_ID}`;
-  const LANG = 'es-es';
-  const LOCK_MS = 5 * 60 * 1000;    // evita que varias pestañas lo intenten a la vez
-  const RETRY_MS = 30 * 60 * 1000;  // tras un error, no reintenta hasta pasados 30 min
-  const NOTIFY_ON_SUCCESS = true;   // pon false si no quieres aviso al completar el registro
+  const LANG = 'en-us';             // language of the messages returned by HoYoLAB
+  const LOCK_MS = 5 * 60 * 1000;    // prevents several tabs from checking in at the same time
+  const RETRY_MS = 30 * 60 * 1000;  // after an error, wait 30 min before retrying
+  const NOTIFY_ON_SUCCESS = true;   // set to false to disable the success notification
 
-  // ---- Utilidades ---------------------------------------------------------
+  // ---- Helpers ------------------------------------------------------------
 
-  // Día actual en hora del servidor (UTC+8): el registro se reinicia a las 00:00 UTC+8.
+  // Current day in server time (UTC+8): the check-in resets at 00:00 UTC+8.
   function serverDay() {
     return new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
   }
 
   function notify(text, openPageOnClick = false) {
     GM_notification({
-      title: 'Star Rail – Registro diario',
+      title: 'Star Rail – Daily Check-in',
       text,
       onclick: openPageOnClick ? () => GM_openInTab(PAGE, { active: true }) : undefined,
     });
@@ -67,11 +67,11 @@
               ? r.response
               : JSON.parse(r.responseText));
           } catch {
-            reject(new Error(`Respuesta no válida (HTTP ${r.status})`));
+            reject(new Error(`Invalid response (HTTP ${r.status})`));
           }
         },
-        onerror: () => reject(new Error('Error de red')),
-        ontimeout: () => reject(new Error('Tiempo de espera agotado')),
+        onerror: () => reject(new Error('Network error')),
+        ontimeout: () => reject(new Error('Request timed out')),
       });
     });
   }
@@ -85,64 +85,64 @@
     GM_setValue('lastFail', Date.now());
   }
 
-  // ---- Lógica principal ---------------------------------------------------
+  // ---- Main logic ---------------------------------------------------------
 
   async function checkIn({ manual = false } = {}) {
     const today = serverDay();
 
     if (!manual) {
-      if (GM_getValue('doneDay') === today) return;                          // ya hecho hoy
-      if (Date.now() - GM_getValue('lastAttempt', 0) < LOCK_MS) return;      // otra pestaña en curso
-      if (Date.now() - GM_getValue('lastFail', 0) < RETRY_MS) return;        // esperar tras un error
+      if (GM_getValue('doneDay') === today) return;                          // already done today
+      if (Date.now() - GM_getValue('lastAttempt', 0) < LOCK_MS) return;      // another tab is on it
+      if (Date.now() - GM_getValue('lastFail', 0) < RETRY_MS) return;        // back off after an error
     }
     GM_setValue('lastAttempt', Date.now());
 
     try {
-      // 1) Consultar estado de hoy
+      // 1) Get today's check-in status
       const info = await request('GET', `info?lang=${LANG}&act_id=${ACT_ID}`);
       if (info.retcode === -100) {
         markFail();
-        notify('No has iniciado sesión en HoYoLAB. Haz clic para abrir la página e iniciar sesión.', true);
+        notify('You are not logged in to HoYoLAB. Click to open the page and log in.', true);
         return;
       }
       if (info.retcode !== 0) throw new Error(info.message || `retcode ${info.retcode}`);
 
       if (info.data && info.data.is_sign) {
         markDone(today);
-        if (manual) notify(`Ya habías hecho el registro hoy (${info.data.total_sign_day} días este mes).`);
+        if (manual) notify(`Already checked in today (${info.data.total_sign_day} days this month).`);
         return;
       }
 
-      // 2) Hacer el registro
+      // 2) Check in
       const sign = await request('POST', `sign?lang=${LANG}`, { act_id: ACT_ID });
 
-      if (sign.retcode === -5003) { // "ya registrado hoy"
+      if (sign.retcode === -5003) { // "already checked in today"
         markDone(today);
-        if (manual) notify('Ya habías hecho el registro hoy.');
+        if (manual) notify('Already checked in today.');
         return;
       }
       if (sign.retcode !== 0) throw new Error(sign.message || `retcode ${sign.retcode}`);
 
-      // HoYoLAB a veces pide un captcha. No se automatiza: hay que hacerlo a mano.
+      // HoYoLAB sometimes requires a captcha. It is not automated: it must be solved by hand.
       if (sign.data && sign.data.gt_result && sign.data.gt_result.is_risk) {
         markFail();
-        notify('HoYoLAB pide una verificación (captcha). Haz clic para hacer el registro a mano.', true);
+        notify('HoYoLAB requires a verification (captcha). Click to check in manually.', true);
         return;
       }
 
       markDone(today);
       const days = ((info.data && info.data.total_sign_day) || 0) + 1;
-      if (manual || NOTIFY_ON_SUCCESS) notify(`¡Registro completado! Llevas ${days} días este mes.`);
+      if (manual || NOTIFY_ON_SUCCESS) notify(`Check-in complete! ${days} days this month.`);
     } catch (err) {
       markFail();
       console.warn('[Star Rail check-in]', err);
-      notify(`No se pudo hacer el registro: ${err.message}. Haz clic para hacerlo a mano.`, true);
+      notify(`Check-in failed: ${err.message}. Click to check in manually.`, true);
     }
   }
 
-  // ---- Menú de Violentmonkey ----------------------------------------------
-  GM_registerMenuCommand('Hacer registro ahora', () => checkIn({ manual: true }));
-  GM_registerMenuCommand('Abrir página de registro', () => GM_openInTab(PAGE, { active: true }));
+  // ---- Extension menu -----------------------------------------------------
+  GM_registerMenuCommand('Check in now', () => checkIn({ manual: true }));
+  GM_registerMenuCommand('Open check-in page', () => GM_openInTab(PAGE, { active: true }));
 
   checkIn();
 })();
