@@ -1,4 +1,4 @@
-<h1 align="center">HoYoLAB Daily Auto Check-in</h1>
+<h1 align="center">HoYoLAB Companion</h1>
 
 <p align="center">
   A browser extension that automatically claims your <b>HoYoLAB daily check-in</b> rewards and <b>redeems gift codes</b><br>
@@ -8,7 +8,6 @@
 <p align="center">
   <img alt="Manifest V3" src="https://img.shields.io/badge/Manifest-V3-4285F4">
   <img alt="Chromium" src="https://img.shields.io/badge/browser-Chrome%20%7C%20Brave%20%7C%20Edge-orange">
-  <img alt="Userscripts" src="https://img.shields.io/badge/userscripts-Violentmonkey%20%7C%20Tampermonkey-8a2be2">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green">
   <a href="https://ko-fi.com/jasdanjc"><img alt="Ko-fi" src="https://img.shields.io/badge/Ko--fi-support-FF5E5B?logo=kofi&logoColor=white"></a>
 </p>
@@ -26,11 +25,9 @@
 - [Details](#details)
   - [Features](#features)
   - [Supported games](#supported-games)
-  - [Extension or userscripts?](#extension-or-userscripts)
 - [Installation](#installation)
   - [Requirements](#requirements)
   - [Install the extension](#install-the-extension)
-  - [Install the userscripts](#install-the-userscripts)
 - [Usage](#usage)
   - [Dashboard](#dashboard)
   - [Settings](#settings)
@@ -75,33 +72,17 @@
 > [!NOTE]
 > Only **HoYoLAB Global** accounts are supported (America, Europe, Asia and TW/HK/MO servers). Chinese servers (miHoYo / 米游社) use a different platform.
 
-### Extension or userscripts?
-
-This repository contains two independent tools. Use **one** of them, not both.
-
-| | **Browser extension** (recommended) | **Userscripts** (lightweight) |
-|---|---|---|
-| Games | All 5 | Genshin Impact, Honkai: Star Rail |
-| Daily check-in | ✅ | ✅ |
-| Code redemption | ✅ | — |
-| Dashboard | ✅ | — |
-| Runs without opening a website | ✅ | — (needs any web page to be opened) |
-| Browsers | Chrome, Brave, Edge and other Chromium browsers | Any browser with Violentmonkey / Tampermonkey, including Firefox |
-| Auto-updates | Manual (see [Updating](#updating--uninstalling)) | ✅ |
-
 ---
 
 ## Installation
 
 ### Requirements
 
-| Requirement | Extension | Userscripts |
-|---|:-:|:-:|
-| A desktop **Chromium** browser 116+ (Chrome, Brave, Edge, Opera, Vivaldi) | ✅ | — |
-| Any desktop browser (Chromium or Firefox) | — | ✅ |
-| A userscript manager: [Violentmonkey](https://violentmonkey.github.io/) (recommended) or [Tampermonkey](https://www.tampermonkey.net/) | — | ✅ |
-| Logged in to [hoyolab.com](https://www.hoyolab.com) in the same browser | ✅ | ✅ |
-| **Real-Time Notes** enabled in HoYoLAB (only for the dashboard) | ✅ | — |
+| Requirement | Needed for |
+|---|---|
+| A desktop **Chromium** browser 116+ (Chrome, Brave, Edge, Opera, Vivaldi) | Everything |
+| Logged in to [hoyolab.com](https://www.hoyolab.com) in the same browser | Everything |
+| **Real-Time Notes** enabled in HoYoLAB | Dashboard only |
 
 <details>
 <summary><b>How to enable Real-Time Notes</b></summary>
@@ -125,45 +106,10 @@ The extension is not on the Chrome Web Store yet, so it is installed as an *unpa
 3. Enable **Developer mode** (toggle in the top-right corner).
 4. Click **Load unpacked** and select the **`extension`** folder inside the extracted repository.
 5. The settings page opens automatically. Check that your characters are detected and disable the games you don't play.
-6. *(Optional)* Pin the extension: puzzle-piece icon in the toolbar → pin **HoYoLAB Daily Auto Check-in**.
+6. *(Optional)* Pin the extension: puzzle-piece icon in the toolbar → pin **HoYoLAB Companion**.
 
 > [!IMPORTANT]
 > Do not delete or move the extracted folder: the browser loads the extension from it.
-
-> [!TIP]
-> If you were using the userscripts, uninstall them from Violentmonkey / Tampermonkey to avoid checking in twice.
-
----
-
-### Install the userscripts
-
-<details>
-<summary><b>Show userscript installation</b></summary>
-
-#### 1. Install a userscript manager
-
-| Extension | Chrome / Brave / Edge | Firefox |
-|---|---|---|
-| **Violentmonkey** (recommended) | [Chrome Web Store](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag) | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/violentmonkey/) |
-| Tampermonkey | [Chrome Web Store](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/tampermonkey/) |
-
-#### 2. Allow user scripts (Chromium browsers only)
-
-Open `chrome://extensions` (or `brave://` / `edge://`) → **Details** on the userscript manager → enable **Allow User Scripts**. On older browser versions enable **Developer mode** instead.
-
-#### 3. Install the scripts
-
-| Game | One-click install |
-|---|---|
-| Genshin Impact | [**Install `genshin-checkin.user.js`**](https://raw.githubusercontent.com/JasdanJC/hoyolab-daily-auto-checkin/main/genshin-checkin.user.js) |
-| Honkai: Star Rail | [**Install `starrail-checkin.user.js`**](https://raw.githubusercontent.com/JasdanJC/hoyolab-daily-auto-checkin/main/starrail-checkin.user.js) |
-
-If the install prompt does not open: create a new script in the manager, press `Ctrl+A` to **delete the template**, paste the script and save. (Pasting over the template causes the error *"`@grant none` disables all other `@grant` keys"*.)
-
-#### 4. Usage
-
-The script checks in automatically the first time you open any website each day. From the manager's menu you can run **Check in now** or **Open check-in page**. Optional settings (`NOTIFY_ON_SUCCESS`, `LANG`, …) are constants at the top of each script.
-</details>
 
 ---
 
@@ -263,13 +209,8 @@ flowchart LR
 
 ## Updating & uninstalling
 
-**Extension**
 - **Update:** download the new version of the repository, replace the contents of your extracted folder, then click the ↻ (*Reload*) button on the extension's card in `chrome://extensions`. Settings and history are kept.
 - **Uninstall:** `chrome://extensions` → **Remove** on the extension's card, then delete the folder.
-
-**Userscripts**
-- Updates are automatic. To uninstall: userscript manager dashboard → select the script → **Delete**.
-
 ---
 
 ## Troubleshooting
@@ -283,8 +224,6 @@ flowchart LR
 | *"Log in on the official gift code page…"* | The code-redemption token has expired (HoYoLAB keeps it separately from the check-in session). | Click **Open gift code page** in the dashboard and log in there (log out and back in if you already appear logged in). Redemption resumes on the next run. |
 | Codes not redeemed for one game | Character level too low, code limit reached or expired codes. | Expected — these codes are marked and not retried. |
 | Extension disappeared after moving the folder | Unpacked extensions are loaded from their folder. | Load it again with **Load unpacked**. |
-| Userscript crossed out with a red **ⓘ** in Violentmonkey | User scripts not allowed (Chromium MV3). | Enable **Allow User Scripts** in the manager's details page. |
-
 ---
 
 ## FAQ
@@ -310,7 +249,7 @@ To attach your existing HoYoLAB session to the extension's own API requests. Coo
 <details>
 <summary><b>Will it support Firefox or the Chrome Web Store?</b></summary>
 
-Both are planned. Meanwhile, Firefox users can use the [userscripts](#install-the-userscripts).
+Both are planned.
 </details>
 
 <details>
@@ -339,7 +278,7 @@ These tools are free and open source. If they saved you a few clicks (or a misse
   <a href="https://ko-fi.com/jasdanjc"><img alt="Support me on Ko-fi" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" height="40"></a>
 </p>
 
-Bug reports, ideas and pull requests are also very welcome in [Issues](https://github.com/JasdanJC/hoyolab-daily-auto-checkin/issues). A ⭐ on the repository helps too!
+Bug reports, ideas and pull requests are also very welcome in [Issues](https://github.com/JasdanJC/hoyolab-companion/issues). A ⭐ on the repository helps too!
 
 ---
 

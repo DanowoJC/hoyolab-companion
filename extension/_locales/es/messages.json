@@ -1,5 +1,5 @@
 {
-  "extName": { "message": "HoYoLAB Daily Auto Check-in" },
+  "extName": { "message": "HoYoLAB Companion" },
   "extDescription": { "message": "Registro diario automático de HoYoLAB y canje de códigos para los juegos de HoYoverse, con un panel de resina, diarias y monedas de la Tetera." },
 
   "checkIn": { "message": "Registro diario" },

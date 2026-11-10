@@ -1,5 +1,5 @@
 {
-  "extName": { "message": "HoYoLAB Daily Auto Check-in" },
+  "extName": { "message": "HoYoLAB Companion" },
   "extDescription": { "message": "Automatic HoYoLAB daily check-in and gift code redemption for HoYoverse games, plus a dashboard for resin, dailies and Realm Currency." },
 
   "checkIn": { "message": "Daily check-in" },
