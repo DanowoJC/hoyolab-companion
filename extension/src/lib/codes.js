@@ -4,7 +4,7 @@
 import { GAMES, GAME_ORDER } from './games.js';
 import { hoyoFetch, baseHeaders, isAuthError, sleep } from './api.js';
 import { getState, updateState } from './storage.js';
-import { hasRedeemToken } from './session.js';
+import { hasRedeemToken, syncRedeemCookies } from './session.js';
 
 const REDEEM_INTERVAL_MS = 6000;               // HoYoverse enforces ~5 s between redemptions
 const FINAL = {
@@ -60,6 +60,7 @@ export async function runCodeRedemption({ settings, account }) {
     out.problems.push({ id: null, reason: 'noToken' });
     return out;
   }
+  await syncRedeemCookies();
 
   for (const id of games) {
     const game = GAMES[id];
@@ -94,7 +95,11 @@ export async function runCodeRedemption({ settings, account }) {
         if (json.retcode !== COOLDOWN) break;
       }
 
-      if (isAuthError(json)) { lastError = 'auth'; break; }
+      if (isAuthError(json)) {
+        // The redemption token (cookie_token_v2) expired: the user must log in on the gift page.
+        lastError = 'redeemLogin';
+        break;
+      }
 
       const attempts = (tried[code]?.attempts || 0) + 1;
       let status = FINAL[json.retcode] ?? 'retry';

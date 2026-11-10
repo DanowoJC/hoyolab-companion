@@ -32,6 +32,39 @@ export async function getLtuid() {
   return cookies.get('ltuid_v2') || cookies.get('ltuid') || null;
 }
 
+// Cookies the code-redemption API on *.hoyoverse.com needs.
+const REDEEM_COOKIES = ['cookie_token_v2', 'account_id_v2', 'account_mid_v2', 'ltoken_v2', 'ltuid_v2', 'ltmid_v2'];
+
+/**
+ * Copies the HoYoLAB session cookies to .hoyoverse.com, exactly as logging in on the
+ * official gift-code page would. Code redemption runs on hoyoverse.com, which does not
+ * share cookies with hoyolab.com. Returns the number of cookies copied.
+ */
+export async function syncRedeemCookies() {
+  const source = await chrome.cookies.getAll({ domain: 'hoyolab.com' });
+  let copied = 0;
+  for (const name of REDEEM_COOKIES) {
+    const c = source.find((x) => x.name === name);
+    if (!c) continue;
+    // Never overwrite a session the user created on hoyoverse.com (e.g. on the gift-code page).
+    const existing = await chrome.cookies.get({ url: 'https://sg-hk4e-api.hoyoverse.com/', name });
+    if (existing) { copied++; continue; }
+    const details = {
+      url: 'https://hoyoverse.com/',
+      domain: '.hoyoverse.com',
+      path: '/',
+      name,
+      value: c.value,
+      secure: true,
+      httpOnly: c.httpOnly,
+      sameSite: 'no_restriction',
+    };
+    if (c.expirationDate) details.expirationDate = c.expirationDate;
+    if (await chrome.cookies.set(details)) copied++;
+  }
+  return copied;
+}
+
 export async function hasRedeemToken() {
   const cookies = await readHoyolabCookies();
   return Boolean(cookies.get('cookie_token_v2') || cookies.get('cookie_token'));
@@ -63,7 +96,8 @@ export async function attachSession() {
         ],
       },
       condition: {
-        requestDomains: ['hoyolab.com', 'hoyoverse.com'],
+        // hoyoverse.com (code redemption) keeps its own session: see syncRedeemCookies().
+        requestDomains: ['hoyolab.com'],
         initiatorDomains: [chrome.runtime.id],
         tabIds: [chrome.tabs.TAB_ID_NONE],
         resourceTypes: ['xmlhttprequest', 'other'],

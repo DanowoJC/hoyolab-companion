@@ -74,6 +74,8 @@ main { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; max
 .codes details summary { cursor: pointer; list-style: none; }
 .codes details summary::-webkit-details-marker { display: none; }
 .codes ul { margin: 4px 0 0; padding-left: 16px; }
+.code-login { display: flex; align-items: center; gap: 8px; color: var(--warn); }
+.code-login .btn { flex: none; }
 .codes code { font-family: ui-monospace, Consolas, monospace; color: var(--text); }
 
 .bottom {

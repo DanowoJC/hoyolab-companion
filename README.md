@@ -239,6 +239,7 @@ flowchart LR
 | **Characters** | Linked characters (UID, server, level) are read from the HoYoLAB game record card and cached for 12 hours. |
 | **Dashboard** | Uses the Battle Chronicle *Real-Time Notes* endpoints, signed with the same `DS` header the HoYoLAB website uses. Read-only. |
 | **Captcha** | If HoYoLAB asks for a captcha, the extension stops and marks the game; it never tries to solve or bypass it. |
+| **Redemption session** | Code redemption runs on `hoyoverse.com`, which does not share cookies with `hoyolab.com`. The extension uses the session of the official gift-code page; if there is none yet, it copies the HoYoLAB one to `.hoyoverse.com`. It never overwrites an existing `hoyoverse.com` session. If the redemption token expires, the dashboard shows a button to log in on the gift-code page. |
 | **Codes** | Active codes come from the community API [api.ennead.cc](https://api.ennead.cc) (the same source used by other open-source HoYoLAB tools). No personal data is sent to it. |
 | **Storage** | `chrome.storage.local`: settings, check-in results, dashboard cache and redeemed code list. Clearable from Settings. |
 
@@ -279,7 +280,7 @@ flowchart LR
 | *"Real-Time Notes are disabled"* | Battle Chronicle privacy settings. | [Enable Real-Time Notes](#requirements). |
 | *"No character on this account"* | No character of that game linked to your HoYoLAB account. | Link it in HoYoLAB, or disable the game in Settings. Then use *Reload linked characters*. |
 | *"Captcha required"* | HoYoLAB anti-bot check. | Click **Check in now** on that card and complete it manually. Happens occasionally. |
-| *"Code redemption needs a fresh login"* | The browser session has no code-redemption token. | Log out of hoyolab.com and log in again. |
+| *"Log in on the official gift code page…"* | The code-redemption token has expired (HoYoLAB keeps it separately from the check-in session). | Click **Open gift code page** in the dashboard and log in there (log out and back in if you already appear logged in). Redemption resumes on the next run. |
 | Codes not redeemed for one game | Character level too low, code limit reached or expired codes. | Expected — these codes are marked and not retried. |
 | Extension disappeared after moving the folder | Unpacked extensions are loaded from their folder. | Load it again with **Load unpacked**. |
 | Userscript crossed out with a red **ⓘ** in Violentmonkey | User scripts not allowed (Chromium MV3). | Enable **Allow User Scripts** in the manager's details page. |
@@ -322,7 +323,7 @@ Not yet — it uses the account logged in to the browser. Multi-account support 
 
 ## Privacy & security
 
-- **Your session stays in your browser.** HoYoLAB cookies are only attached to requests sent to HoYoLAB / HoYoverse servers. They are never saved by the extension and never sent to any other server.
+- **Your session stays in your browser.** HoYoLAB cookies are only attached to requests sent to HoYoLAB / HoYoverse servers (and copied to the browser's `hoyoverse.com` cookies for code redemption). They are never saved by the extension and never sent to any other server.
 - **The only third-party service** is [api.ennead.cc](https://api.ennead.cc), queried anonymously for the list of public codes.
 - **No analytics, no tracking, no remote code.** Everything the extension runs is in this repository.
 - **Permissions used:** `alarms` (scheduling), `storage` (settings and history), `cookies` (session), `declarativeNetRequestWithHostAccess` (attaching the session to its own requests), `notifications` (optional alerts), and host access to `*.hoyolab.com`, `*.hoyoverse.com` and `api.ennead.cc`.

@@ -24,6 +24,7 @@ export const GAMES = {
     codes: {
       source: 'https://api.ennead.cc/mihoyo/genshin/codes',
       redeemUrl: 'https://sg-hk4e-api.hoyoverse.com/common/apicdkey/api/webExchangeCdkey',
+      giftPage: 'https://genshin.hoyoverse.com/gift',
       method: 'GET',
     },
     realm: true,
@@ -50,6 +51,7 @@ export const GAMES = {
     codes: {
       source: 'https://api.ennead.cc/mihoyo/starrail/codes',
       redeemUrl: 'https://sg-hkrpg-api.hoyoverse.com/common/apicdkey/api/webExchangeCdkeyRisk',
+      giftPage: 'https://hsr.hoyoverse.com/gift',
       method: 'POST',
     },
   },
@@ -75,6 +77,7 @@ export const GAMES = {
     codes: {
       source: 'https://api.ennead.cc/mihoyo/zenless/codes',
       redeemUrl: 'https://public-operation-nap.hoyoverse.com/common/apicdkey/api/webExchangeCdkey',
+      giftPage: 'https://zenless.hoyoverse.com/redemption',
       method: 'GET',
     },
   },

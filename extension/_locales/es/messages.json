@@ -42,7 +42,8 @@
   "codes": { "message": "Códigos" },
   "codesNever": { "message": "Aún sin comprobar" },
   "codesSummary": { "message": "$P1$ canjeados · comprobado $P2$", "placeholders": { "p1": { "content": "$1" }, "p2": { "content": "$2" } } },
-  "codesNoToken": { "message": "Para canjear códigos hace falta volver a iniciar sesión: cierra sesión y vuelve a entrar en hoyolab.com." },
+  "codesNoToken": { "message": "Inicia sesión en la página oficial de canje de códigos para activar el canje automático." },
+  "codesLoginBtn": { "message": "Abrir página de canje" },
   "codesRecent": { "message": "Canjeados recientemente" },
 
   "notLoggedIn": { "message": "No has iniciado sesión en HoYoLAB en este navegador." },

@@ -42,7 +42,8 @@
   "codes": { "message": "Gift codes" },
   "codesNever": { "message": "Not checked yet" },
   "codesSummary": { "message": "$P1$ redeemed · checked $P2$", "placeholders": { "p1": { "content": "$1" }, "p2": { "content": "$2" } } },
-  "codesNoToken": { "message": "Code redemption needs a fresh login: log out and back in on hoyolab.com." },
+  "codesNoToken": { "message": "Log in on the official gift code page to enable automatic redemption." },
+  "codesLoginBtn": { "message": "Open gift code page" },
   "codesRecent": { "message": "Recently redeemed" },
 
   "notLoggedIn": { "message": "You are not logged in to HoYoLAB in this browser." },

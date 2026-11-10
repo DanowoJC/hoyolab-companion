@@ -164,10 +164,7 @@ function renderCodes(card, id) {
     box.append(el('div', '', `${t('codes')}: ${t('codesNever')}`));
     return;
   }
-  if (c.lastError === 'noToken') {
-    box.append(el('div', '', `${t('codes')}: ${t('codesNoToken')}`));
-    return;
-  }
+  const needsLogin = c.lastError === 'noToken' || c.lastError === 'redeemLogin';
   if (c.lastError === 'noAccount') {
     box.hidden = true;
     return;
@@ -191,7 +188,16 @@ function renderCodes(card, id) {
     details.append(ul);
   }
   box.append(details);
-  if (c.lastError && c.lastError !== 'noToken') box.append(el('div', '', t('statusError', [c.lastError])));
+  if (needsLogin) {
+    const row = el('div', 'code-login');
+    const a = el('a', 'btn small', t('codesLoginBtn'));
+    a.href = GAMES[id].codes.giftPage;
+    a.target = '_blank';
+    row.append(el('span', '', t('codesNoToken')), a);
+    box.append(row);
+  } else if (c.lastError) {
+    box.append(el('div', '', t('statusError', [c.lastError])));
+  }
 }
 
 function render() {
