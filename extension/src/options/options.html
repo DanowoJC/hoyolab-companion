@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HoYoLAB Daily Auto Check-in</title>
+  <link rel="stylesheet" href="../ui/common.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-head">
+      <img src="../../icons/icon48.png" alt="" width="36" height="36">
+      <div>
+        <h1 data-i18n="extName"></h1>
+        <div class="muted" data-i18n="optTitle"></div>
+      </div>
+      <span id="saved" class="saved" data-i18n="optSaved" hidden></span>
+    </header>
+
+    <section class="card">
+      <h2 data-i18n="optAccount"></h2>
+      <div class="row-between">
+        <div id="account-info"></div>
+        <button id="btn-account" class="btn ghost small" data-i18n="optAccountRefresh"></button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="optGames"></h2>
+      <p class="muted hint" data-i18n="optGamesHint"></p>
+      <div id="games"></div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="optGeneral"></h2>
+      <label class="row-between">
+        <span data-i18n="optNotify"></span>
+        <span class="switch"><input type="checkbox" id="notify"><span></span></span>
+      </label>
+      <label class="row-between">
+        <span data-i18n="optLang"></span>
+        <select id="lang">
+          <option value="en-us">English</option>
+          <option value="es-es">Español</option>
+          <option value="fr-fr">Français</option>
+          <option value="de-de">Deutsch</option>
+          <option value="pt-pt">Português</option>
+          <option value="it-it">Italiano</option>
+          <option value="ru-ru">Русский</option>
+          <option value="ja-jp">日本語</option>
+          <option value="ko-kr">한국어</option>
+          <option value="zh-tw">繁體中文</option>
+          <option value="zh-cn">简体中文</option>
+          <option value="id-id">Bahasa Indonesia</option>
+          <option value="th-th">ภาษาไทย</option>
+          <option value="vi-vn">Tiếng Việt</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="optData"></h2>
+      <div class="row-between">
+        <span class="muted" data-i18n="optAbout"></span>
+        <button id="btn-reset" class="btn ghost small" data-i18n="optReset"></button>
+      </div>
+    </section>
+
+    <footer class="muted foot">
+      <a href="https://github.com/JasdanJC/hoyolab-daily-auto-checkin" target="_blank">GitHub</a> ·
+      <a href="https://ko-fi.com/jasdanjc" target="_blank">Ko-fi</a> ·
+      <span id="version"></span>
+    </footer>
+  </div>
+
+  <template id="tpl-game">
+    <div class="game">
+      <div class="game-top">
+        <span class="dot"></span>
+        <div class="grow">
+          <div class="game-name"></div>
+          <div class="role muted"></div>
+        </div>
+        <label class="inline"><span class="muted" data-i18n="optEnabled"></span>
+          <span class="switch"><input type="checkbox" data-k="enabled"><span></span></span>
+        </label>
+      </div>
+      <div class="features">
+        <label class="inline"><span class="switch"><input type="checkbox" data-k="checkin"><span></span></span><span data-i18n="optCheckIn"></span></label>
+        <label class="inline codes-opt"><span class="switch"><input type="checkbox" data-k="codes"><span></span></span><span data-i18n="optCodes"></span></label>
+      </div>
+    </div>
+  </template>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

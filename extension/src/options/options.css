@@ -1,0 +1,42 @@
+body { min-height: 100vh; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 28px 16px 40px; }
+
+.page-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.page-head h1 { font-size: 19px; margin: 0; }
+.saved { margin-left: auto; color: var(--ok); font-weight: 600; }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.card h2 { font-size: 14px; margin: 0 0 10px; }
+.hint { margin: -4px 0 12px; font-size: 12.5px; }
+
+.row-between { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 6px 0; }
+label.row-between { cursor: pointer; }
+
+select {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 5px 8px;
+  font: inherit;
+}
+
+.game { border-top: 1px solid var(--border); padding: 11px 0; }
+.game:first-child { border-top: 0; padding-top: 2px; }
+.game-top { display: flex; align-items: center; gap: 10px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.grow { flex: 1; min-width: 0; }
+.game-name { font-weight: 700; }
+.role { font-size: 12px; }
+.features { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 9px 0 0 20px; }
+.game.off .features { opacity: .45; pointer-events: none; }
+.inline { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+
+.foot { text-align: center; font-size: 12px; }
+.foot a { color: var(--accent); text-decoration: none; }

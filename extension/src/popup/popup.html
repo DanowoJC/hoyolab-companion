@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../ui/common.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <img src="../../icons/icon32.png" alt="" width="20" height="20">
+      <span data-i18n="extName"></span>
+    </div>
+    <div class="actions">
+      <button id="btn-refresh" class="icon-btn" data-i18n-title="refresh" aria-label="Refresh">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.75 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"/></svg>
+      </button>
+      <button id="btn-settings" class="icon-btn" data-i18n-title="settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19.14 12.94a7.07 7.07 0 0 0 .05-.94 7.07 7.07 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.02 7.02 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.49.42l-.36 2.54c-.59.24-1.13.56-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.66 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.07 7.07 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.6.22l2.39-.96c.5.38 1.04.7 1.63.94l.36 2.54c.05.24.25.42.49.42h3.84c.24 0 .45-.18.49-.42l.36-2.54c.59-.24 1.13-.56 1.63-.94l2.39.96c.22.08.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="auth-banner" class="banner" hidden>
+    <span data-i18n="notLoggedIn"></span>
+    <a href="https://www.hoyolab.com" target="_blank" class="btn small" data-i18n="openHoyolab"></a>
+  </div>
+
+  <main id="games"></main>
+
+  <footer class="bottom">
+    <button id="btn-checkin" class="btn" data-i18n="checkInNow"></button>
+    <button id="btn-redeem" class="btn ghost" data-i18n="redeemNow"></button>
+  </footer>
+
+  <template id="tpl-game">
+    <section class="game">
+      <div class="game-head">
+        <span class="dot"></span>
+        <div class="titles">
+          <div class="game-name"></div>
+          <div class="role muted"></div>
+        </div>
+      </div>
+      <div class="row checkin">
+        <span class="status-icon"></span>
+        <div class="grow">
+          <div class="status-text"></div>
+          <div class="reward muted"></div>
+        </div>
+      </div>
+      <div class="notes"></div>
+      <div class="row codes muted" hidden></div>
+    </section>
+  </template>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
