@@ -278,7 +278,7 @@ These tools are free and open source. If they saved you a few clicks (or a misse
   <a href="https://ko-fi.com/jasdanjc"><img alt="Support me on Ko-fi" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" height="40"></a>
 </p>
 
-Bug reports, ideas and pull requests are also very welcome in [Issues](https://github.com/JasdanJC/hoyolab-companion/issues). A ⭐ on the repository helps too!
+Bug reports, ideas and pull requests are also very welcome in [Issues](https://github.com/DanowoJC/hoyolab-companion/issues). A ⭐ on the repository helps too!
 
 ---
 
@@ -292,4 +292,4 @@ This software is provided "as is", without warranty of any kind. You are respons
 
 ## License
 
-Distributed under the [MIT License](LICENSE). © 2026 JasdanJC
+Distributed under the [MIT License](LICENSE). © 2026 DanowoJC

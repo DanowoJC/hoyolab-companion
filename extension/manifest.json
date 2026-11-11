@@ -5,8 +5,8 @@
   "description": "__MSG_extDescription__",
   "version": "2.1.0",
   "default_locale": "en",
-  "author": "JasdanJC",
-  "homepage_url": "https://github.com/JasdanJC/hoyolab-companion",
+  "author": "DanowoJC",
+  "homepage_url": "https://github.com/DanowoJC/hoyolab-companion",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
